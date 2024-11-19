@@ -23,7 +23,7 @@
     "paths": {
       "*": ["*"],
       "components/*": ["components/*"],
-      "types/*": ["types/*"],
+      "types/*": ["node", "babel__core"],
       "services/*": ["services/*"]
     }
   },
