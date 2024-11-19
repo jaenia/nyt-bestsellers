@@ -17,7 +17,6 @@ const Home: React.FC = () => {
 
   const handleCategoryChange = (category: string) => {
     if (!category) return;
-    console.log("categoria mudou")
   };
 
   return (
