@@ -1,1 +1,1 @@
-export { fetchCategories } from "./nytBooksService";
+export { fetchCategories, fetchBooks } from "./nytBooksService";
