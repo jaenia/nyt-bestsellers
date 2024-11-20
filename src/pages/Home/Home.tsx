@@ -5,7 +5,15 @@ import Dropdown from "components/dropdown";
 import BookList from "components/book-list";
 import LoadingIndicator from "components/loading-indicator";
 
-import { Container } from "./Home.styles";
+import {
+  Container,
+  Header,
+  Title,
+  MainContent,
+  PlaceholderText ,
+  PlaceholderTitle,
+  BrandText
+} from "./Home.styles";
 
 const Home: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -42,18 +50,29 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      <h1>NYT Bestsellers Explorer</h1>
-      {error && <p>{error}</p>}
-      {loadingCategories ? (
-        <LoadingIndicator message="Loading categories..." />
-      ) : (
-        <Dropdown categories={categories} onSelect={handleCategoryChange} />
-      )}
-      {loadingBooks ? (
-        <LoadingIndicator message="Loading books..." />
-      ) : (
-        <BookList books={books} />
-      )}
+      <Header>
+        <Title>
+          <BrandText>NYT Bestsellers</BrandText> Explorer</Title>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            {loadingCategories && <LoadingIndicator />}
+            {!error && <Dropdown categories={categories} onSelect={handleCategoryChange} />}
+          </div>
+      </Header>
+
+      <MainContent>
+        {error && <PlaceholderText>{error}</PlaceholderText>}
+        {!loadingBooks && books.length === 0 && !error && (
+          <PlaceholderText>
+            <PlaceholderTitle>Explore the world of <BrandText>NYT Bestsellers</BrandText>!</PlaceholderTitle>
+            Select a category to discover the top books in different genres and categories.
+          </PlaceholderText>
+        )}
+        {loadingBooks ? (
+          <PlaceholderText>Loading books...</PlaceholderText>
+        ) : (
+          <BookList books={books} />
+        )}
+      </MainContent>
     </Container>
   );
 };
