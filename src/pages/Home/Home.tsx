@@ -54,8 +54,10 @@ const Home: React.FC = () => {
         <Title>
           <BrandText>NYT Bestsellers</BrandText> Explorer</Title>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            {loadingCategories && <LoadingIndicator />}
-            {!error && <Dropdown categories={categories} onSelect={handleCategoryChange} />}
+            {loadingCategories && <LoadingIndicator message="Loading categories..." />}
+            {!error && !loadingCategories && (
+              <Dropdown categories={categories} onSelect={handleCategoryChange} />
+            )}
           </div>
       </Header>
 
