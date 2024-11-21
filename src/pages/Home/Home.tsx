@@ -14,7 +14,8 @@ import {
   MainContent,
   PlaceholderText ,
   PlaceholderTitle,
-  BrandText
+  BrandText,
+  ErrorMessage
 } from "./Home.styles";
 
 const Home: React.FC = () => {
@@ -72,27 +73,31 @@ const Home: React.FC = () => {
       </Header>
 
       <MainContent>
-        {error && <PlaceholderText>{error}</PlaceholderText>}
-
-        {!loadingBooks && books.length === 0 && !error && (
-          <PlaceholderText>
-            <PlaceholderTitle>
-              Explore the world of <BrandText>NYT Bestsellers</BrandText>!
-            </PlaceholderTitle>
-            Select a category to discover the top books in different genres and categories.
-          </PlaceholderText>
-        )}
-
-        {showCategoryMessage && (
-          <CategoryMessage>
-            Displaying the bestsellers from the <CategoryName>{selectedCategory}</CategoryName> category.
-          </CategoryMessage>
-        )}
-
-        {loadingBooks ? (
-          <LoadingIndicator message="Loading books..." />
+        {error ? (
+          <ErrorMessage>{error}</ErrorMessage>
         ) : (
-          <BookList books={books} />
+          <>
+            {!loadingBooks && books.length === 0 && (
+              <PlaceholderText>
+                <PlaceholderTitle>
+                  Explore the world of <BrandText>NYT Bestsellers</BrandText>!
+                </PlaceholderTitle>
+                Select a category to discover the top books in different genres and categories.
+              </PlaceholderText>
+            )}
+
+            {showCategoryMessage && (
+              <CategoryMessage>
+                Displaying the bestsellers from the <CategoryName>{selectedCategory}</CategoryName> category.
+              </CategoryMessage>
+            )}
+
+            {loadingBooks ? (
+              <LoadingIndicator message="Loading books..." />
+            ) : (
+              <BookList books={books} />
+            )}
+          </>
         )}
       </MainContent>
     </Container>

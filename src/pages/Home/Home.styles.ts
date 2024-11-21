@@ -16,6 +16,7 @@ export const Header = styled.header`
   background-color: ${({ theme }) => theme.colors.background};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  height: 80px;
 `;
 
 export const Title = styled.h1`
@@ -43,7 +44,6 @@ export const MainContent = styled.main`
   margin-top: 40px;
   overflow: hidden;
 `;
-
 
 export const PlaceholderText = styled.div`
   font-size: 16px;
@@ -74,4 +74,13 @@ export const CategoryMessage = styled.div`
 export const CategoryName = styled.span`
   font-weight: bold;
   color: ${({ theme }) => theme.colors.secondary};
+`;
+
+export const ErrorMessage = styled.div`
+  color: #ff4d4f;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
 `;
