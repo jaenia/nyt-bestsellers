@@ -38,8 +38,8 @@ const Home: React.FC = () => {
   }, []);
 
   const handleCategoryChange = (category: string) => {
-    const selected = categories.find((cat) => cat.list_name === category);
-    setSelectedCategory(selected?.display_name || "");
+    setSelectedCategory(category);
+    if (!category) return;
     setLoadingBooks(true);
     fetchBooks(category)
       .then(setBooks)
@@ -47,15 +47,26 @@ const Home: React.FC = () => {
       .finally(() => setLoadingBooks(false));
   };
 
+  const handleReset = () => {
+    setBooks([]);
+    setSelectedCategory("");
+    setError("");
+  };
+
+  const showCategoryMessage = !loadingBooks && selectedCategory && books.length > 0;
+
   return (
     <Container>
       <Header>
-        <Title>
-          <BrandText>NYT Bestsellers</BrandText> Explorer</Title>
+        <Title onClick={handleReset}><BrandText>NYT Bestsellers</BrandText> Explorer</Title>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             {loadingCategories && <LoadingIndicator message="Loading categories..." />}
             {!error && !loadingCategories && (
-              <Dropdown categories={categories} onSelect={handleCategoryChange} />
+              <Dropdown
+                categories={categories}
+                onSelect={handleCategoryChange}
+                selectedCategory={selectedCategory}
+              />
             )}
           </div>
       </Header>
@@ -72,14 +83,14 @@ const Home: React.FC = () => {
           </PlaceholderText>
         )}
 
-        {selectedCategory && books.length > 0 && (
+        {showCategoryMessage && (
           <CategoryMessage>
             Displaying the bestsellers from the <CategoryName>{selectedCategory}</CategoryName> category.
           </CategoryMessage>
         )}
 
         {loadingBooks ? (
-          <PlaceholderText>Loading books...</PlaceholderText>
+          <LoadingIndicator message="Loading books..." />
         ) : (
           <BookList books={books} />
         )}

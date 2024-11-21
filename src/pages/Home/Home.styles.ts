@@ -22,6 +22,7 @@ export const Title = styled.h1`
   margin: 0;
   font-size: 24px;
   color: ${({ theme }) => theme.colors.secondary};
+  cursor: pointer;
 `;
 
 export const LoadingWrapper = styled.div`
