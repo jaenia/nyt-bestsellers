@@ -1,5 +1,13 @@
 # NYT Bestsellers Explorer
 
+The project is a frontend application to explore New York Times (NYT) bestseller categories and books.
+
+## Demo
+
+Here's a quick demo of the application:
+
+![NYT Bestsellers Explorer](assets/peek.gif)
+
 ## **How to Run the NYT Bestsellers Explorer**
 
 1. **Clone the Repository**
@@ -51,8 +59,6 @@
 ---
 
 ## **Solution Design and Key Decisions**
-
-The project is a frontend application to explore New York Times (NYT) bestseller categories and books. Below, I outline my design decisions and thought process throughout the development process:
 
 ### **1. Project Initialization and Setup**
 
