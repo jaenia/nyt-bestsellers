@@ -8,6 +8,8 @@ Here's a quick demo of the application:
 
 ![NYT Bestsellers Explorer](assets/peek.gif)
 
+You can explore it in production here: https://nytbestesellers.netlify.app/
+
 ## **How to Run the NYT Bestsellers Explorer**
 
 1. **Clone the Repository**
