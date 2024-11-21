@@ -16,6 +16,11 @@ export const Card = styled.div`
     transform: translateY(-5px);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
   }
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const BookImage = styled.img`
@@ -23,7 +28,8 @@ export const BookImage = styled.img`
   height: 180px;
   border-radius: 5px;
   object-fit: cover;
-  margin-bottom: 0 auto 12px;
+  margin-bottom: 12px;
+  align-self: center;
 `;
 
 export const BookTitle = styled.h3`
@@ -57,6 +63,6 @@ export const RankBadge = styled.div`
   padding: 5px 10px;
   border-radius: 20px;
   text-align: center;
-  align-self: flex-end;
+  align-self: center;
   margin-top: 10px;
 `;
