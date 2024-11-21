@@ -6,6 +6,8 @@ import BookList from "components/book-list";
 import LoadingIndicator from "components/loading-indicator";
 
 import {
+  CategoryMessage,
+  CategoryName,
   Container,
   Header,
   Title,
@@ -19,8 +21,9 @@ const Home: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState<String>("");
-  const [loadingCategories, setLoadingCategories] = useState(true);
-  const [loadingBooks, setLoadingBooks] = useState(false);
+  const [loadingCategories, setLoadingCategories] = useState<boolean>(true);
+  const [loadingBooks, setLoadingBooks] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   useEffect(() => {
     fetchCategories()
@@ -35,17 +38,13 @@ const Home: React.FC = () => {
   }, []);
 
   const handleCategoryChange = (category: string) => {
-    if (!category) return;
+    const selected = categories.find((cat) => cat.list_name === category);
+    setSelectedCategory(selected?.display_name || "");
     setLoadingBooks(true);
     fetchBooks(category)
-      .then((data) => {
-        setBooks(data);
-        setLoadingBooks(false);
-      })
-      .catch(() => {
-        setError("Failed to load books");
-        setLoadingBooks(false);
-      });
+      .then(setBooks)
+      .catch(() => setError("Failed to load books"))
+      .finally(() => setLoadingBooks(false));
   };
 
   return (
@@ -63,12 +62,22 @@ const Home: React.FC = () => {
 
       <MainContent>
         {error && <PlaceholderText>{error}</PlaceholderText>}
+
         {!loadingBooks && books.length === 0 && !error && (
           <PlaceholderText>
-            <PlaceholderTitle>Explore the world of <BrandText>NYT Bestsellers</BrandText>!</PlaceholderTitle>
+            <PlaceholderTitle>
+              Explore the world of <BrandText>NYT Bestsellers</BrandText>!
+            </PlaceholderTitle>
             Select a category to discover the top books in different genres and categories.
           </PlaceholderText>
         )}
+
+        {selectedCategory && books.length > 0 && (
+          <CategoryMessage>
+            Displaying the bestsellers from the <CategoryName>{selectedCategory}</CategoryName> category.
+          </CategoryMessage>
+        )}
+
         {loadingBooks ? (
           <PlaceholderText>Loading books...</PlaceholderText>
         ) : (

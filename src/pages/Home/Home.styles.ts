@@ -5,13 +5,17 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.header`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: ${({ theme }) => theme.colors.background};
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 `;
 
 export const Title = styled.h1`
@@ -30,15 +34,21 @@ export const MainContent = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 200px);
   text-align: center;
   color: ${({ theme }) => theme.colors.secondary};
+
+  min-height: calc(100vh - 100px);
+  padding: 20px;
+  margin-top: 40px;
+  overflow: hidden;
 `;
 
-export const PlaceholderText = styled.p`
-  font-size: 20px;
+
+export const PlaceholderText = styled.div`
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.secondary};
+  text-align: center;
   line-height: 1.5;
-  color: #555;
 `;
 
 export const PlaceholderTitle = styled.span`
@@ -49,4 +59,18 @@ export const PlaceholderTitle = styled.span`
 
 export const BrandText = styled.span`
   color: ${({ theme }) => theme.colors.primary};
-`
+`;
+
+export const CategoryMessage = styled.div`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.primary};
+  margin-top: 60px;
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
+export const CategoryName = styled.span`
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.secondary};
+`;
