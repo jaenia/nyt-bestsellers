@@ -24,10 +24,9 @@ const renderWithTheme = (component: React.ReactNode) => {
 };
 
 describe("BookCard", () => {
-  
   test("renders book title, author, and description correctly", () => {
     renderWithTheme(<BookCard book={mockBook} />);
-    
+
     expect(screen.getByText(mockBook.title)).toBeInTheDocument();
     expect(screen.getByText(`by ${mockBook.author}`)).toBeInTheDocument();
     expect(screen.getByText(mockBook.description)).toBeInTheDocument();
@@ -35,7 +34,7 @@ describe("BookCard", () => {
 
   test("renders the book image with correct alt text", () => {
     renderWithTheme(<BookCard book={mockBook} />);
-    
+
     const bookImage = screen.getByAltText(mockBook.title);
     expect(bookImage).toBeInTheDocument();
     expect(bookImage).toHaveAttribute("src", mockBook.book_image);
@@ -43,7 +42,7 @@ describe("BookCard", () => {
 
   test("renders the rank badge with the correct rank", () => {
     renderWithTheme(<BookCard book={mockBook} />);
-    
+
     expect(screen.getByText(`Rank #${mockBook.rank}`)).toBeInTheDocument();
   });
 });

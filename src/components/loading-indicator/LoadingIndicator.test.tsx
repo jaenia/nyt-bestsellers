@@ -4,18 +4,17 @@ import { ThemeProvider } from "styled-components";
 import LoadingIndicator from "./LoadingIndicator";
 
 const mockTheme = {
-    colors: {
-      primary: "#3498db",
-      secondary: "#2ecc71",
-    },
-  };
-  
+  colors: {
+    primary: "#3498db",
+    secondary: "#2ecc71",
+  },
+};
+
 const renderWithTheme = (ui: React.ReactNode) => {
   return render(<ThemeProvider theme={mockTheme}>{ui}</ThemeProvider>);
 };
 
 describe("LoadingIndicator", () => {
-  
   test("renders the spinner", () => {
     renderWithTheme(<LoadingIndicator message="Loading data..." />);
 
@@ -25,7 +24,7 @@ describe("LoadingIndicator", () => {
 
   test("renders the message when passed", () => {
     const testMessage = "Loading data...";
-    
+
     renderWithTheme(<LoadingIndicator message={testMessage} />);
 
     expect(screen.getByText(testMessage)).toBeInTheDocument();

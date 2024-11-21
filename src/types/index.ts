@@ -1,2 +1,2 @@
-export * from "./category.types"
-export * from "./book.types"
+export * from "./category.types";
+export * from "./book.types";

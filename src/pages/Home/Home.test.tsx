@@ -1,7 +1,13 @@
 /* eslint-disable testing-library/no-wait-for-multiple-assertions */
 /* eslint-disable testing-library/no-debugging-utils */
 
-import { render, screen, fireEvent, waitFor, within } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import { fetchCategories, fetchBooks } from "services/api";
 import { ThemeProvider } from "styled-components";
 import { Category, Book } from "types";
@@ -58,7 +64,7 @@ describe("Home Component", () => {
 
     await waitFor(() => {
       expect(screen.getByText(/Loading categories.../i)).toBeInTheDocument();
-    })
+    });
   });
 
   it("should display categories after they are loaded", async () => {
@@ -74,7 +80,9 @@ describe("Home Component", () => {
   });
 
   it("should display error message if categories fail to load", async () => {
-    (fetchCategories as jest.Mock).mockRejectedValueOnce(new Error("Failed to load categories"));
+    (fetchCategories as jest.Mock).mockRejectedValueOnce(
+      new Error("Failed to load categories"),
+    );
 
     renderWithTheme(<Home />);
 
@@ -102,7 +110,9 @@ describe("Home Component", () => {
 
   it("should display error message if books fail to load", async () => {
     (fetchCategories as jest.Mock).mockResolvedValueOnce(mockCategories);
-    (fetchBooks as jest.Mock).mockRejectedValueOnce(new Error("Failed to load books"));
+    (fetchBooks as jest.Mock).mockRejectedValueOnce(
+      new Error("Failed to load books"),
+    );
 
     renderWithTheme(<Home />);
 
@@ -124,8 +134,8 @@ describe("Home Component", () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          /Select a category to discover the top books in different genres and categories/i
-        )
+          /Select a category to discover the top books in different genres and categories/i,
+        ),
       ).toBeInTheDocument();
     });
   });
@@ -133,7 +143,7 @@ describe("Home Component", () => {
   it("should reset state when clicking the 'NYT Bestsellers Explorer' header", async () => {
     (fetchCategories as jest.Mock).mockResolvedValueOnce(mockCategories);
     (fetchBooks as jest.Mock).mockResolvedValueOnce(mockBooks);
-    
+
     renderWithTheme(<Home />);
 
     fireEvent.change(await screen.findByRole("combobox"), {
@@ -142,7 +152,7 @@ describe("Home Component", () => {
 
     await waitFor(() => {
       expect(fetchBooks).toHaveBeenCalledWith("fiction");
-    })
+    });
 
     expect(screen.getByText("Book 1")).toBeInTheDocument();
 
@@ -165,10 +175,11 @@ describe("Home Component", () => {
     });
 
     await waitFor(() => {
-      const messageDiv = screen.getByText(/Displaying the bestsellers from the/i);
+      const messageDiv = screen.getByText(
+        /Displaying the bestsellers from the/i,
+      );
       const categorySpan = within(messageDiv).getByText(/fiction/i);
       expect(categorySpan).toBeInTheDocument();
     });
   });
 });
-

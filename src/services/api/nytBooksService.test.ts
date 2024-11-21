@@ -45,7 +45,7 @@ describe("NYT Books Service Functions", () => {
       const categories: Category[] = await fetchCategories();
 
       expect(fetch).toHaveBeenCalledWith(
-        expect.stringContaining("/lists/names.json")
+        expect.stringContaining("/lists/names.json"),
       );
       expect(categories).toEqual(mockCategoriesResponse.results);
     });
@@ -56,7 +56,9 @@ describe("NYT Books Service Functions", () => {
         json: async () => ({ message: "Error" }),
       });
 
-      await expect(fetchCategories()).rejects.toThrow("Failed to fetch categories");
+      await expect(fetchCategories()).rejects.toThrow(
+        "Failed to fetch categories",
+      );
     });
   });
 
@@ -70,7 +72,7 @@ describe("NYT Books Service Functions", () => {
       const books: Book[] = await fetchBooks("hardcover-fiction");
 
       expect(fetch).toHaveBeenCalledWith(
-        expect.stringContaining("lists/current/hardcover-fiction.json")
+        expect.stringContaining("lists/current/hardcover-fiction.json"),
       );
       expect(books).toEqual(mockBooksResponse.results.books);
     });
@@ -81,7 +83,9 @@ describe("NYT Books Service Functions", () => {
         json: async () => ({ message: "Error" }),
       });
 
-      await expect(fetchBooks("hardcover-fiction")).rejects.toThrow("Failed to fetch books");
+      await expect(fetchBooks("hardcover-fiction")).rejects.toThrow(
+        "Failed to fetch books",
+      );
     });
   });
 });

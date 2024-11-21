@@ -9,7 +9,9 @@ export const Card = styled.article`
   border-radius: 10px;
   padding: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   justify-content: space-between;
 
   &:hover {

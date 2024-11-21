@@ -7,9 +7,11 @@ const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({ message }) => {
   return (
     <LoadingIndicatorContainer>
       <Spinner role="status" />
-      {message && <p style={{ marginLeft: "10px", fontSize: "16px" }}>{message}</p>}
+      {message && (
+        <p style={{ marginLeft: "10px", fontSize: "16px" }}>{message}</p>
+      )}
     </LoadingIndicatorContainer>
   );
 };
-  
+
 export default LoadingIndicator;

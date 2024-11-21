@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { ThemeProvider } from "styled-components";
-import Dropdown from "./Dropdown"; 
+import Dropdown from "./Dropdown";
 
 const mockTheme = {
   colors: {
@@ -24,7 +24,11 @@ describe("Dropdown Component", () => {
 
   test("should render dropdown with categories", () => {
     renderWithTheme(
-      <Dropdown categories={categories} onSelect={onSelect} selectedCategory="" />
+      <Dropdown
+        categories={categories}
+        onSelect={onSelect}
+        selectedCategory=""
+      />,
     );
 
     expect(screen.getByText("Select a category")).toBeInTheDocument();
@@ -34,17 +38,27 @@ describe("Dropdown Component", () => {
 
   test("should call onSelect when a category is selected", () => {
     renderWithTheme(
-      <Dropdown categories={categories} onSelect={onSelect} selectedCategory="" />
+      <Dropdown
+        categories={categories}
+        onSelect={onSelect}
+        selectedCategory=""
+      />,
     );
 
-    fireEvent.change(screen.getByRole("combobox"), { target: { value: "fiction" } });
+    fireEvent.change(screen.getByRole("combobox"), {
+      target: { value: "fiction" },
+    });
 
     expect(onSelect).toHaveBeenCalledWith("fiction");
   });
 
   test("should display selected category correctly", () => {
     renderWithTheme(
-      <Dropdown categories={categories} onSelect={onSelect} selectedCategory="fiction" />
+      <Dropdown
+        categories={categories}
+        onSelect={onSelect}
+        selectedCategory="fiction"
+      />,
     );
 
     expect(screen.getByRole("combobox")).toHaveValue("fiction");

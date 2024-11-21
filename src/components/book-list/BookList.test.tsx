@@ -59,9 +59,9 @@ describe("BookList", () => {
 
     mockBooks.forEach((book) => {
       expect(screen.getByText(book.title)).toBeInTheDocument();
-      
+
       expect(screen.getByText(`by ${book.author}`)).toBeInTheDocument();
-      
+
       expect(screen.getByText(`Rank #${book.rank}`)).toBeInTheDocument();
     });
   });

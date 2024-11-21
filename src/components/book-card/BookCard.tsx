@@ -6,7 +6,7 @@ import {
   AuthorText,
   BookTitle,
   Description,
-  RankBadge, 
+  RankBadge,
 } from "./BookCard.styles";
 
 const BookCard: React.FC<{ book: Book }> = ({ book }) => {

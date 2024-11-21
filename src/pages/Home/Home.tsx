@@ -12,10 +12,10 @@ import {
   Header,
   Title,
   MainContent,
-  PlaceholderText ,
+  PlaceholderText,
   PlaceholderTitle,
   BrandText,
-  ErrorMessage
+  ErrorMessage,
 } from "./Home.styles";
 
 const Home: React.FC = () => {
@@ -54,22 +54,27 @@ const Home: React.FC = () => {
     setError("");
   };
 
-  const showCategoryMessage = !loadingBooks && selectedCategory && books.length > 0;
+  const showCategoryMessage =
+    !loadingBooks && selectedCategory && books.length > 0;
 
   return (
     <Container>
       <Header>
-        <Title onClick={handleReset}><BrandText>NYT Bestsellers</BrandText> Explorer</Title>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            {loadingCategories && <LoadingIndicator message="Loading categories..." />}
-            {!error && !loadingCategories && (
-              <Dropdown
-                categories={categories}
-                onSelect={handleCategoryChange}
-                selectedCategory={selectedCategory}
-              />
-            )}
-          </div>
+        <Title onClick={handleReset}>
+          <BrandText>NYT Bestsellers</BrandText> Explorer
+        </Title>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          {loadingCategories && (
+            <LoadingIndicator message="Loading categories..." />
+          )}
+          {!error && !loadingCategories && (
+            <Dropdown
+              categories={categories}
+              onSelect={handleCategoryChange}
+              selectedCategory={selectedCategory}
+            />
+          )}
+        </div>
       </Header>
 
       <MainContent>
@@ -82,13 +87,15 @@ const Home: React.FC = () => {
                 <PlaceholderTitle>
                   Explore the world of <BrandText>NYT Bestsellers</BrandText>!
                 </PlaceholderTitle>
-                Select a category to discover the top books in different genres and categories.
+                Select a category to discover the top books in different genres
+                and categories.
               </PlaceholderText>
             )}
 
             {showCategoryMessage && (
               <CategoryMessage>
-                Displaying the bestsellers from the <CategoryName>{selectedCategory}</CategoryName> category.
+                Displaying the bestsellers from the{" "}
+                <CategoryName>{selectedCategory}</CategoryName> category.
               </CategoryMessage>
             )}
 
