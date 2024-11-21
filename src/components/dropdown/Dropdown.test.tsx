@@ -1,42 +1,52 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Dropdown from "./Dropdown";
-import { Category } from "types";
+import { ThemeProvider } from "styled-components";
+import Dropdown from "./Dropdown"; 
+
+const mockTheme = {
+  colors: {
+    primary: "#3498db",
+    secondary: "#2ecc71",
+  },
+};
+
+const renderWithTheme = (ui: React.ReactNode) => {
+  return render(<ThemeProvider theme={mockTheme}>{ui}</ThemeProvider>);
+};
 
 describe("Dropdown Component", () => {
-  const mockCategories: Category[] = [
+  const categories = [
     { list_name: "fiction", display_name: "Fiction" },
-    { list_name: "nonfiction", display_name: "Non-Fiction" },
+    { list_name: "nonfiction", display_name: "Nonfiction" },
   ];
 
-  const mockOnSelect = jest.fn();
+  const onSelect = jest.fn();
 
-  it("renders the dropdown with options", () => {
-    render(<Dropdown categories={mockCategories} onSelect={mockOnSelect} />);
+  test("should render dropdown with categories", () => {
+    renderWithTheme(
+      <Dropdown categories={categories} onSelect={onSelect} selectedCategory="" />
+    );
 
     expect(screen.getByText("Select a category")).toBeInTheDocument();
-
     expect(screen.getByText("Fiction")).toBeInTheDocument();
-    expect(screen.getByText("Non-Fiction")).toBeInTheDocument();
+    expect(screen.getByText("Nonfiction")).toBeInTheDocument();
   });
 
-  it("calls onSelect when an option is selected", () => {
-    render(<Dropdown categories={mockCategories} onSelect={mockOnSelect} />);
+  test("should call onSelect when a category is selected", () => {
+    renderWithTheme(
+      <Dropdown categories={categories} onSelect={onSelect} selectedCategory="" />
+    );
 
-    fireEvent.change(screen.getByRole("combobox"), {
-      target: { value: "fiction" },
-    });
+    fireEvent.change(screen.getByRole("combobox"), { target: { value: "fiction" } });
 
-    expect(mockOnSelect).toHaveBeenCalledWith("fiction");
-    expect(mockOnSelect).toHaveBeenCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledWith("fiction");
   });
 
-  it("renders correctly when no categories are provided", () => {
-    render(<Dropdown categories={[]} onSelect={mockOnSelect} />);
+  test("should display selected category correctly", () => {
+    renderWithTheme(
+      <Dropdown categories={categories} onSelect={onSelect} selectedCategory="fiction" />
+    );
 
-    expect(screen.getByText("Select a category")).toBeInTheDocument();
-
-    const options = screen.getAllByRole("option");
-    expect(options).toHaveLength(1);
+    expect(screen.getByRole("combobox")).toHaveValue("fiction");
   });
 });

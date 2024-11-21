@@ -5,7 +5,10 @@ import { Select } from "./Dropdown.styles";
 
 const Dropdown: React.FC<DropdownProps> = ({ categories, onSelect, selectedCategory }) => {
   return (
-    <Select onChange={(e) => onSelect(e.target.value)} value={selectedCategory}>
+    <Select
+      onChange={(e) => onSelect(e.target.value)}
+      value={selectedCategory}
+    >
       <option value="" disabled>Select a category</option>
       {categories.map((category) => (
         <option key={category.list_name} value={category.list_name}>

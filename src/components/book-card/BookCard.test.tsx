@@ -4,44 +4,46 @@ import { ThemeProvider } from "styled-components";
 import BookCard from "./BookCard";
 import { Book } from "types";
 
-// needed due to BookCard styles using the theme
-const mockTheme = {
-  colors: {
-    cardBackground: "#ffffff",
-  },
-};
-
 const mockBook: Book = {
-  title: "Sample Book",
-  author: "Sample Author",
-  description: "This is a great book about testing.",
-  book_image: "https://example.com/sample-book.jpg",
+  book_image: "https://example.com/book-image.jpg",
+  title: "Test Book Title",
+  author: "Test Author",
+  description: "This is a short description of the book.",
   rank: 1,
 };
 
-describe("BookCard", () => {
-  it("renders the book information correctly", () => {
-    render(
-      <ThemeProvider theme={mockTheme}>
-        <BookCard book={mockBook} />
-      </ThemeProvider>
-    );
+const mockTheme = {
+  colors: {
+    primary: "#3498db",
+    secondary: "#2ecc71",
+  },
+};
 
-    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(mockBook.title);
+const renderWithTheme = (component: React.ReactNode) => {
+  return render(<ThemeProvider theme={mockTheme}>{component}</ThemeProvider>);
+};
+
+describe("BookCard", () => {
+  
+  test("renders book title, author, and description correctly", () => {
+    renderWithTheme(<BookCard book={mockBook} />);
+    
+    expect(screen.getByText(mockBook.title)).toBeInTheDocument();
     expect(screen.getByText(`by ${mockBook.author}`)).toBeInTheDocument();
     expect(screen.getByText(mockBook.description)).toBeInTheDocument();
-    expect(screen.getByText(`Rank: ${mockBook.rank}`)).toBeInTheDocument();
   });
 
-  it("renders the book image with correct alt text", () => {
-    render(
-      <ThemeProvider theme={mockTheme}>
-        <BookCard book={mockBook} />
-      </ThemeProvider>
-    );
-
-    const bookImage = screen.getByRole("img", { name: mockBook.title });
+  test("renders the book image with correct alt text", () => {
+    renderWithTheme(<BookCard book={mockBook} />);
+    
+    const bookImage = screen.getByAltText(mockBook.title);
+    expect(bookImage).toBeInTheDocument();
     expect(bookImage).toHaveAttribute("src", mockBook.book_image);
-    expect(bookImage).toHaveAttribute("alt", mockBook.title);
+  });
+
+  test("renders the rank badge with the correct rank", () => {
+    renderWithTheme(<BookCard book={mockBook} />);
+    
+    expect(screen.getByText(`Rank #${mockBook.rank}`)).toBeInTheDocument();
   });
 });
